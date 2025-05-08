@@ -35,6 +35,10 @@ public class User
     [MinLength(9)]
     public string PhoneNumber { get; set; }
 
+    public int ActiveCode { get; set; }
+
+    public bool IsAdmin { get; set; }
+
     public DateTime CreateDate { get; set; }
 
     public ICollection<Order> Orders { get; set; }

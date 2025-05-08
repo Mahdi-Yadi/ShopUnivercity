@@ -23,6 +23,8 @@ public class Product
 
     public int Count { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public DateTime CreateDate { get; set; }
 
     public DateTime UpdateDate { get; set; }

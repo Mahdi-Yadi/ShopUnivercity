@@ -15,10 +15,14 @@
             <div class="col-lg-12 col-md-12">
                 <div class="account_form">
                     <h2>فراموش کلمه عبور</h2>
-                    <form action="#">
+                    @if (ViewBag.message != null)
+                    {
+                        @ViewBag.message
+                    }
+                    <form asp-controller="Account" asp-action="Forgot" method="post">
                         <p>
-                            <label> ایمیل <span>*</span></label>
-                            <input type="text">
+                            <label> شماره تلفن <span>*</span></label>
+                            <input type="number" name="phone">
                         </p>
                         <div class="login_submit">
 

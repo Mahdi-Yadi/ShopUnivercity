@@ -41,10 +41,18 @@
 							<p>تلفن تماس: <a class="ltr-text" href="tel:+989123456789">+(98) 123 456 789</a></p>
 						</div>
 						<div class="top_right text-right">
-							<ul>
-								<li><a href="my-account.html"> حساب کاربری </a></li>
-								<li><a href="checkout.html"> پرداخت </a></li>
-							</ul>
+                            <ul>
+								@if (User.Identity.IsAuthenticated)
+								{
+									<li><a asp-area="UserPanel" asp-controller="Home" asp-action="Index"> حساب کاربری </a></li>
+								}
+								else
+								{
+									<li><a asp-controller="Account" asp-action="Register"> ثبت نام </a></li>
+									<li><a asp-controller="Account" asp-action="Login"> ورود </a></li>
+								}
+                                <li><a href="checkout.html"> پرداخت </a></li>
+                            </ul>
 						</div>
 						<div class="search_container">
 							<form action="#">
@@ -250,7 +258,15 @@
 						<div class="col-lg-6 col-md-6">
 							<div class="top_right text-right">
 								<ul>
-									<li><a href="my-account.html"> حساب کاربری </a></li>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <li><a asp-area="UserPanel" asp-controller="Home" asp-action="Index"> حساب کاربری </a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a asp-controller="Account" asp-action="Register"> ثبت نام </a></li>
+                                        <li><a asp-controller="Account" asp-action="Login"> ورود </a></li>
+                                    }
 									<li><a href="checkout.html"> پرداخت </a></li>
 								</ul>
 							</div>
@@ -697,7 +713,7 @@
 				<div class="row align-items-center">
 					<div class="col-lg-6 col-md-6">
 						<div class="copyright_area">
-							<p>toplearn</p>
+							<p>متن فوتر</p>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6">
