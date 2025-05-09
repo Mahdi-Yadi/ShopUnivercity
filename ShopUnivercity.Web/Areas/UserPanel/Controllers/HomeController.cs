@@ -5,7 +5,7 @@ using ShopUnivercity.Web.Tools;
 
 namespace ShopUnivercity.Web.Areas.UserPanel.Controllers;
 [Authorize]
-[Area("AdminPanel")]
+[Area("UserPanel")]
 [Route("Panel")]
 public class HomeController : Controller
 {

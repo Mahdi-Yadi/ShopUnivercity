@@ -1,7 +1,30 @@
-﻿
+﻿@model ShopUnivercity.Web.Models.Entities.Products.Product
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = " حذف محصول " + Model.Title;
 }
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">@ViewData["Title"]</h3>
+    </div>
 
-<h1>Delete</h1>
+    <form method="post" asp-area="AdminPanel" asp-controller="Products" asp-action="DeleteProduct">
+        <div class="card-body">
 
+            <div class="form-group">
+                <label for="exampleInputEmail1">عنوان محصول : @Model.Title</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="عنوان محصول" asp-for="Title">
+            </div>
+            
+            <div>
+                آیا از حذف محصول مطمن هستید؟
+            </div>
+
+        </div>
+
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-danger">حذف محصول</button>
+        </div>
+
+    </form>
+</div>

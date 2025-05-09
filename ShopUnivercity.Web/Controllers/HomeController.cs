@@ -1,32 +1,26 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using ShopUnivercity.Web.Data;
 using ShopUnivercity.Web.Models;
 
 namespace ShopUnivercity.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly SiteDBContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(SiteDBContext db)
         {
-            _logger = logger;
+            _db = db;
         }
 
         public IActionResult Index()
         {
+            ViewBag.lastProducts = _db.Product.OrderByDescending(a => a.CreateDate)
+                .Take(6).ToList();
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+       
     }
 }

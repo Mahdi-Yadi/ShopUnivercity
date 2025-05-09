@@ -95,7 +95,7 @@ public class AccountController : Controller
 
         ViewBag.message = "ورود با موفقیت انجام شد.";
 
-        return View();
+        return Redirect("/");
     }
 
     public async Task<IActionResult> Logout()

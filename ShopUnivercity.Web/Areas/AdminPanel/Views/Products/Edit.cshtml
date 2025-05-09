@@ -1,7 +1,56 @@
-﻿
+﻿@model ShopUnivercity.Web.Models.Entities.Products.Product
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = " ویرایش محصول " + Model.Title;
 }
 
-<h1>Edit</h1>
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">@ViewData["Title"]</h3>
+    </div>
 
+    <form method="post" asp-area="AdminPanel" asp-controller="Products" asp-action="Edit" enctype="multipart/form-data">
+        <div class="card-body">
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">عنوان محصول</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="عنوان محصول" asp-for="Title">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">قیمت محصول</label>
+                <input type="number" class="form-control" id="exampleInputEmail1" placeholder="قیمت محصول" asp-for="Price">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">تعداد محصول</label>
+                <input type="number" class="form-control" id="exampleInputEmail1" placeholder="تعداد محصول" asp-for="Count">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">توضیحات محصول</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="توضیحات محصول" asp-for="Description">
+            </div>
+
+            <div class="form-group">
+                <img src="/images/@Model.ImageName" width="50" height="50"/>
+                <label for="exampleInputFile">ارسال فایل</label>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="imageFile">
+                        <label class="custom-file-label" for="exampleInputFile">انتخاب فایل</label>
+                    </div>
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="">Upload</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">ثبت ویرایش</button>
+        </div>
+
+    </form>
+</div>

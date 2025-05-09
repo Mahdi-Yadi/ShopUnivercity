@@ -19,7 +19,9 @@ public class ProductsController : Controller
     [HttpGet("Products")]
     public IActionResult Products()
     {
-        var p = _db.Product.ToList();
+        var p = _db.Product
+            .OrderByDescending(a => a.CreateDate)
+            .ToList();
 
         return View(p);
     }
@@ -59,7 +61,7 @@ public class ProductsController : Controller
 
                 var imageName = p.Title.Replace(" ", "-") + Path.GetExtension(imageFile.FileName);
 
-                string path = Path.Combine(Directory.GetCurrentDirectory()) + "wwwroot/Images/" + imageName;
+                string path = Path.Combine(Directory.GetCurrentDirectory()) + "/wwwroot/Images/" + imageName;
                 using (var stram = new FileStream(path, FileMode.Create))
                 {
                     imageFile.CopyTo(stram);
@@ -73,13 +75,15 @@ public class ProductsController : Controller
                 throw;
             }
         }
+        newP.CreateDate = DateTime.Now;
+        newP.UpdateDate = DateTime.Now;
 
         _db.Product.Add(newP);
         _db.SaveChanges();
 
         ViewBag.message = "محصول با موفقیت ایجاد شد";
 
-        return View();
+        return RedirectToAction(nameof(Products));
     }
 
     [HttpGet("Edit/{id}")]
@@ -99,7 +103,7 @@ public class ProductsController : Controller
     [HttpPost("Edit/{id}")]
     public IActionResult Edit(int id, Product p, IFormFile imageFile)
     {
-        var oldP = _db.Product.FirstOrDefault(a => a.Title == p.Title && 
+        var oldP = _db.Product.FirstOrDefault(a => a.Title == p.Title &&
                                                    a.Id != p.Id);
 
         if (oldP != null)
@@ -109,8 +113,6 @@ public class ProductsController : Controller
         }
 
         var product = _db.Product.FirstOrDefault(a => a.Id == p.Id);
-
-        product = p;
 
         if (imageFile != null)
         {
@@ -125,10 +127,10 @@ public class ProductsController : Controller
 
                 var imageName = p.Title.Replace(" ", "-") + Path.GetExtension(imageFile.FileName);
 
-                string path = Path.Combine(Directory.GetCurrentDirectory()) + "wwwroot/Images/" + imageName;
+                string path = Path.Combine(Directory.GetCurrentDirectory()) + "/wwwroot/Images/" + imageName;
 
                 if (product.ImageName != null)
-                    System.IO.File.Delete(Path.Combine(Directory.GetCurrentDirectory()) + "wwwroot/Images/" + product.ImageName);
+                    System.IO.File.Delete(Path.Combine(Directory.GetCurrentDirectory()) + "/wwwroot/Images/" + product.ImageName);
 
                 using (var stram = new FileStream(path, FileMode.Create))
                 {
@@ -144,12 +146,18 @@ public class ProductsController : Controller
             }
         }
 
+        product.UpdateDate = DateTime.Now;
+        product.Title = p.Title;
+        product.Description = p.Description;
+        product.Count = p.Count;
+        product.Price = p.Price;
+
         _db.Product.Update(product);
         _db.SaveChanges();
 
         ViewBag.message = "محصول با موفقیت بروزرسانی شد";
 
-        return View();
+        return RedirectToAction(nameof(Products));
     }
 
 
@@ -168,9 +176,9 @@ public class ProductsController : Controller
     }
 
     [HttpPost("DeleteProduct/{id}")]
-    public IActionResult DeleteProduct(int id,string title)
+    public IActionResult DeleteProduct(int id, string title)
     {
-        var product = _db.Product.FirstOrDefault(a => 
+        var product = _db.Product.FirstOrDefault(a =>
                                                    a.Id == id);
 
         product.IsDeleted = true;
@@ -180,7 +188,7 @@ public class ProductsController : Controller
 
         ViewBag.message = "محصول با موفقیت حذف شد";
 
-        return View();
+        return RedirectToAction(nameof(Products));
     }
 
 }
