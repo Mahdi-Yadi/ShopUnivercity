@@ -1,6 +1,6 @@
 ﻿@model ShopUnivercity.Web.Models.Entities.Products.Product
 @{
-    ViewData["Title"] =  " جزییات محصول " + Model.Title;
+	ViewData["Title"] =  " جزییات محصول " + Model.Title;
 }
 <!--sticky header area start-->
 <div class="sticky_header_area sticky-header">
@@ -189,6 +189,12 @@
 <div class="product_details mt-60 mb-60">
 	<div class="container">
 		<div class="row">
+			@if(ViewBag.mes != null)
+			{
+				<div class="alert alert-info">
+					@ViewBag.mes
+					</div>
+			}
 			<div class="col-lg-6 col-md-6">
 				<div class="product-details-tab">
 					<div id="img-1" class="zoomWrapper single-zoom">
@@ -201,7 +207,7 @@
 			</div>
 			<div class="col-lg-6 col-md-6">
 				<div class="product_d_right">
-					<form action="#">
+				
 
 						<h1>@Model.Title</h1>
 
@@ -251,7 +257,7 @@
 							<span>دسته: <a href="#">پوشاک</a></span>
 						</div>
 
-					</form>
+				
 					<div class="priduct_social">
 						<ul>
 							<li><a class="facebook" href="#" title="فیسبوک"><i class="fa fa-facebook"></i> لایک</a></li>

@@ -17,6 +17,8 @@ public class Order
 
     public bool IsPay { get; set; }
 
+    public bool IsCompleted { get; set; }
+
     public int UserId { get; set; }
 
     public User User { get; set; }

@@ -1,7 +1,80 @@
-﻿
+﻿@model ShopUnivercity.Web.Models.Entities.Orders.Order
 @{
-    ViewData["Title"] = "Order";
+    ViewData["Title"] = "فاکتور";
 }
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="account_dashboard">
+                <div class="row">
 
-<h1>Order</h1>
+                    <div class="card-body">
+                        <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                   <div class="col-sm-6">
+                                       <p> نام و نام خانوادگی  : @Model.User.FullName</p>
+                                        <p> شماره تلفن  : @Model.User.PhoneNumber</p>
+                                        <p> آدرس  : @Model.User.Address</p>
+                                        <p> کد پستی  : @Model.User.CodePost</p>
+                                   </div>
+                                </div>
+                            </div>
+                                <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="example1" class="table table-bordered table-striped dataTable" role="grid">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="موتور رندر: activate to sort column descending" style="width: 249.203px;">شماره فاکتور</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="مرورگر: activate to sort column ascending" style="width: 444.875px;">جمع</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="سیستم عامل: activate to sort column ascending" style="width: 415.625px;">وضعیت پرداخت</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="ورژن: activate to sort column ascending" style="width: 116.438px;">تعداد</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="ورژن: activate to sort column ascending" style="width: 116.438px;">وضعیت تکمیل</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="امتیاز: activate to sort column ascending" style="width: 121.859px;">عملیات</th>
+                                            </tr>
+                                        </thead>
 
+                                        <tbody>
+                                            @if (Model.OrderDetails.Count > 0)
+                                            {
+                                                @foreach (var item in Model.OrderDetails)
+                                                {
+                                                    <tr class="text-center">
+                                                        <td>@item.Id</td>
+                                                        <td>
+                                                            @if (item.Count > 0)
+                                                            {
+                                                                decimal sumPrice = 0;
+
+                                                                var price = item.Product.Price;
+
+                                                                sumPrice += price * item.Count;
+
+                                                                @sumPrice.ToString("#,0")
+                                                                <span> تومان </span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>0</span>
+                                                            }
+                                                        </td>
+                                                        <td>@item.Count</td>
+
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
