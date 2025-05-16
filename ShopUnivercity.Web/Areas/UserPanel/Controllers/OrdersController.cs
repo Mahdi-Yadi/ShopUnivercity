@@ -27,8 +27,6 @@ public class OrdersController : Controller
             .Where(a => a.UserId == User.GetUserId())
             .ToList();
 
-
-
         return View(orders);
     }
 

@@ -44,7 +44,7 @@ public class OrdersController : Controller
     }
 
 
-    [HttpGet("CompleteOrder")]
+    [HttpGet("CompleteOrder/{id}")]
     public IActionResult CompleteOrder(int id)
     {
         var order = _db.Orders
@@ -58,7 +58,7 @@ public class OrdersController : Controller
         _db.Orders.Update(order);
         _db.SaveChanges();
 
-        return RedirectToAction(nameof(order));
+        return RedirectToAction(nameof(Orders));
     }
 
 }

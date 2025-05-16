@@ -1,5 +1,7 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Parbad.Builder;
+using Parbad.Gateway.ZarinPal;
 using ShopUnivercity.Web.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,21 @@ builder.Services.AddDbContext<SiteDBContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("myConnection"));
 });
 
+builder.Services.AddParbad()
+    .ConfigureGateways(getway =>
+    {
+        getway.AddZarinPal()
+        .WithAccounts(accounts =>
+        {
+            accounts.AddInMemory(account =>
+            {
+                account.MerchantId = "کدی که از درگاه پرداخت میدن";
+                account.IsSandbox = true;
+            });
+        });
+    })
+    .ConfigureHttpContext(build => build.UseDefaultAspNetCore())
+    .ConfigureStorage(build => build.UseMemoryCache());
 
 builder.Services.AddAuthentication(options =>
     {
