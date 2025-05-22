@@ -61,7 +61,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> LoginAsync(string phone, string password,bool remember)
+    public async Task<IActionResult> Login(string phone, string password,bool remember)
     {
         if (phone == null || password == null)
         {
