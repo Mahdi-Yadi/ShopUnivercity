@@ -51,7 +51,7 @@
                                                                     decimal sumPrice = 0;
                                                                     @foreach (var i in item.OrderDetails)
                                                                     {
-                                                                        var price = i.Product.Price;
+                                                                        var price = (i.Price == 0 ? i.Product.Price : i.Price);
 
                                                                         sumPrice += price * i.Count;
                                                                     }

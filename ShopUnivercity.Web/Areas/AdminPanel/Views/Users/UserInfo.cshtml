@@ -1,6 +1,6 @@
-﻿@model ShopUnivercity.Web.Models.Entities.Orders.Order
+﻿@model ShopUnivercity.Web.Models.Entities.Account.User
 @{
-    ViewData["Title"] = "فاکتور";
+    ViewData["Title"] = " کاربر " + Model.FullName;
 }
 
 <section class="content">
@@ -13,15 +13,15 @@
                         <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
-                                   <div class="col-sm-6">
-                                       <p> نام و نام خانوادگی  : @Model.User.FullName</p>
-                                        <p> شماره تلفن  : @Model.User.PhoneNumber</p>
-                                        <p> آدرس  : @Model.User.Address</p>
-                                        <p> کد پستی  : @Model.User.CodePost</p>
-                                   </div>
+                                    <div class="col-sm-6">
+                                        <p> نام و نام خانوادگی  : @Model.FullName</p>
+                                        <p> شماره تلفن  : @Model.PhoneNumber</p>
+                                        <p> آدرس  : @Model.Address</p>
+                                        <p> کد پستی  : @Model.CodePost</p>
+                                    </div>
                                 </div>
                             </div>
-                                <div class="row">
+                            <div class="row">
                                 <div class="col-sm-12">
                                     <table id="example1" class="table table-bordered table-striped dataTable" role="grid">
                                         <thead>
@@ -30,26 +30,25 @@
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="مرورگر: activate to sort column ascending" style="width: 444.875px;">جمع</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="سیستم عامل: activate to sort column ascending" style="width: 415.625px;">وضعیت پرداخت</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="ورژن: activate to sort column ascending" style="width: 116.438px;">تعداد</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="ورژن: activate to sort column ascending" style="width: 116.438px;">وضعیت تکمیل</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="امتیاز: activate to sort column ascending" style="width: 121.859px;">عملیات</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
-                                            @if (Model.OrderDetails.Count > 0)
+                                            @if (Model.Orders.Count > 0)
                                             {
-                                                @foreach (var item in Model.OrderDetails)
+                                                @foreach (var item in Model.Orders)
                                                 {
                                                     <tr class="text-center">
                                                         <td>@item.Id</td>
                                                         <td>
-                                                            @if (item.Count > 0)
+                                                            @if (item.OrderDetails.Count > 0)
                                                             {
                                                                 decimal sumPrice = 0;
 
-                                                                var price = (item.Price == 0 ? item.Product.Price : item.Price);
-
-                                                                sumPrice += price * item.Count;
+                                                                foreach (var od in item.OrderDetails)
+                                                                {
+                                                                    sumPrice += od.Product.Price * od.Count;
+                                                                }
 
                                                                 @sumPrice.ToString("#,0")
                                                                 <span> تومان </span>
@@ -59,8 +58,19 @@
                                                                 <span>0</span>
                                                             }
                                                         </td>
-                                                        <td>@item.Count</td>
-
+                                                        <td>
+                                                            @if (item.IsPay)
+                                                            {
+                                                                <span>پرداخت شده</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>پرداخت نشده</span>
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            <a asp-area="AdminPanel" asp-controller="Orders" asp-action="Order" asp-route-id="@item.Id"> جزییات</a>
+                                                        </td>
                                                     </tr>
                                                 }
                                             }

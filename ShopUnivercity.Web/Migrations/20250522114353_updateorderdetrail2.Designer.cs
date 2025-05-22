@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopUnivercity.Web.Data;
 
@@ -11,9 +12,11 @@ using ShopUnivercity.Web.Data;
 namespace ShopUnivercity.Web.Migrations
 {
     [DbContext(typeof(SiteDBContext))]
-    partial class SiteDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250522114353_updateorderdetrail2")]
+    partial class updateorderdetrail2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,8 +130,8 @@ namespace ShopUnivercity.Web.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float?>("Price")
+                        .HasColumnType("real");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");

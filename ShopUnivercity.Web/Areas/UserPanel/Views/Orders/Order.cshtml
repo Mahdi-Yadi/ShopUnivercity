@@ -45,7 +45,7 @@
                                                                 {
                                                                     decimal sumPrice = 0;
 
-                                                                    var price = item.Product.Price;
+                                                                    var price = (item.Price == 0 ? item.Product.Price : item.Price);
 
                                                                     sumPrice += price * item.Count;
 

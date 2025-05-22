@@ -14,7 +14,7 @@ IConfiguration configuration = new ConfigurationBuilder()
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<SiteDBContext>(options =>
+builder.Services.AddDbContextFactory<SiteDBContext>(options =>
 {
     options.UseSqlServer(configuration.GetConnectionString("myConnection"));
 });

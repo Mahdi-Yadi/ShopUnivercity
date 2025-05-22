@@ -136,6 +136,11 @@ public class PaymentsController : Controller
             {
                 decimal price = item.Product.Price * item.Count;
 
+                item.Price = item.Product.Price;
+
+                _db.OrderDetails.Update(item);
+                _db.SaveChanges();
+
                 totalPrice += price;
             }
 
@@ -143,6 +148,7 @@ public class PaymentsController : Controller
 
             _db.Orders.Update(order);
             _db.SaveChanges();
+
 
             ViewBag.Message = $"فاکتور با موفقیت پرداخت شد. {verifyResult.TransactionCode} کد پیگیری درگاه پرداخت.";
 
